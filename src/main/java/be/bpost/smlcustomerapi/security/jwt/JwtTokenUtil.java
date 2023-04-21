@@ -24,14 +24,14 @@ import java.util.Date;
 public class JwtTokenUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenUtil.class);
 
-    public static String getJwtTokenSignedWithPrivateKey(SmlUserDetails smlUserDetails) throws Exception {
+    public static String getJwtTokenSignedWithPrivateKey(SmlUserDetails smlUserDetails, Date expirationDate) throws Exception {
 
         Instant instant = Instant.now();
         String privateKeyString = getResourceContentAsString("/certificates/pkcs8-private.key");
         PrivateKey privateKey = getPrivateKey(privateKeyString);
         return Jwts.builder().setIssuer("https://sml-dv2.bpost.cloud")
                 .setSubject("users/1300819380")
-                .setExpiration(Date.from(instant.plusSeconds(3600)))
+                .setExpiration(expirationDate)
                 .claim("scope", "connections:read connections:write")
                 .claim("client_id_name", "sml")
                 .claim("email", smlUserDetails.getEmail())
