@@ -17,7 +17,7 @@ import java.security.PrivateKey;
 import java.security.spec.EncodedKeySpec;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
-import java.time.Instant;
+
 import java.util.Base64;
 import java.util.Date;
 
@@ -26,7 +26,7 @@ public class JwtTokenUtil {
 
     public static String getJwtTokenSignedWithPrivateKey(SmlUserDetails smlUserDetails, Date expirationDate) throws Exception {
 
-        Instant instant = Instant.now();
+
         String privateKeyString = getResourceContentAsString("/certificates/pkcs8-private.key");
         PrivateKey privateKey = getPrivateKey(privateKeyString);
         return Jwts.builder().setIssuer("https://sml-dv2.bpost.cloud")
